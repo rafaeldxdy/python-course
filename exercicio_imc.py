@@ -1,6 +1,6 @@
-nome = 'Rafael Ribeiro'
-altura = 1.69
-peso = 85
-imc = peso / altura**2
+nome = 'Rafael'
+altura = 1.68
+peso = 86
+imc = peso / altura ** 2
 
-print(nome,'tem',altura,'de altura,','pesa',peso,'kg e seu IMC é:',imc)
+print('Rafael tem', altura,  'cm de altura, pesa', peso, 'kg e seu IMC é de:', imc)
