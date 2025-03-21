@@ -1,12 +1,11 @@
-senha_permitida = '123456'
+# in / not in
 
-entrada = input('[E]ntrar [S]air ')
+palavra = input('Digite uma palavra: ')
+encontrar = input('Digite o que quer encontrar na palavra: ')
 
-if entrada != 'E':
-    print('Você saiu!')
+if encontrar in palavra:
+    print(f'{encontrar} está em {palavra}')
+elif encontrar not in palavra:
+    print(f'{encontrar} não está em {palavra}')
 else:
-    senha_digitada = input('Digite sua senha: ')
-    if entrada == 'E' and senha_digitada == senha_permitida:
-        print('Entrada autorizada!')
-    else:
-        print('Entrada negada!')
+    print('Erro!')
