@@ -6,3 +6,4 @@ while condicao:
         break
     else:
         print(f'Seu nome é: {nome}')
+        # continue -> pula uma iteração
