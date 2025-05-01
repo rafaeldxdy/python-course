@@ -27,7 +27,7 @@ print(lista_frutas)
 lista_frutas.insert(1, 'Caqui')
 
 # Removendo um item numa posição específica da lista
-del lista_frutas[3]
+del lista_frutas[3]s
 
 # Limpando a lista
 lista_frutas.clear()
