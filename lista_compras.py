@@ -34,14 +34,28 @@ while True:
                 print(f'{indice}. {item}')
 
     elif opcao.lower() == 'r':
+
+        if len(lista_compras) == 0:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print('Sua lista está vazia.')
+            continue
+
         os.system('cls' if os.name == 'nt' else 'clear')
+
         for indice, item in enumerate(lista_compras):
             print(f'{indice}. {item}')
         indice_lista = input('Qual item gostaria de remover? ')
 
         try:
             os.system('cls' if os.name == 'nt' else 'clear')
+
             int_indice_lista = int(indice_lista)
+
+            if int_indice_lista < 0 or int_indice_lista >= len(lista_compras):
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print('Por favor, selecione um índice válido.')
+                continue
+
             del lista_compras[int_indice_lista]
             print('Item removido com sucesso! Sua nova lista é:')
             for indice, item in enumerate(lista_compras):
