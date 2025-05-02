@@ -4,15 +4,16 @@ lista_compras = []
 
 while True:
 
+    # Limpa a tela no início de cada iteração do loop principal
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     opcao = input('''Selecione a opção desejada: \n [l]istar \n [i]nserir \n [r]emover \n [s]air \n''')
 
     if opcao.isalpha() == False or len(opcao) > 1:
-        os.system('cls' if os.name == 'nt' else 'clear')
         print('Por favor, selecione uma opção válida.')
         continue
 
     if opcao.lower() == 'l':
-        os.system('cls' if os.name == 'nt' else 'clear')
         if len(lista_compras) == 0:
             print('Sua lista está vazia.')
         else:
@@ -20,16 +21,13 @@ while True:
                 print(f'{indice}. {item}')
 
     elif opcao.lower() == 'i':
-        os.system('cls' if os.name == 'nt' else 'clear')
         item_lista = input('O que gostaria de inserir? ')
         if item_lista in lista_compras:
-            os.system('cls' if os.name == 'nt' else 'clear')
             print('Esse item já está na lista.')
             continue
         else:
             lista_compras.append(item_lista)
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print('Item inserido com sucesso! Sua nova lista é:')
+            print(f'"{item_lista}" inserido com sucesso!')
             for indice, item in enumerate(lista_compras):
                 print(f'{indice}. {item}')
 
@@ -37,18 +35,14 @@ while True:
 
         if len(lista_compras) == 0:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print('Sua lista está vazia.')
+            print('Sua lista está vazia. Nada para remover.')
             continue
-
-        os.system('cls' if os.name == 'nt' else 'clear')
 
         for indice, item in enumerate(lista_compras):
             print(f'{indice}. {item}')
         indice_lista = input('Qual item gostaria de remover? ')
 
         try:
-            os.system('cls' if os.name == 'nt' else 'clear')
-
             int_indice_lista = int(indice_lista)
 
             if int_indice_lista < 0 or int_indice_lista >= len(lista_compras):
@@ -57,18 +51,19 @@ while True:
                 continue
 
             del lista_compras[int_indice_lista]
-            print('Item removido com sucesso! Sua nova lista é:')
+            print('Item removido com sucesso!')
             for indice, item in enumerate(lista_compras):
                 print(f'{indice}. {item}')
         except:
-            os.system('cls' if os.name == 'nt' else 'clear')
             print('Por favor, selecione um índice válido.')
             continue
 
     elif opcao.lower() == 's':
-        os.system('cls' if os.name == 'nt' else 'clear')
         break
 
     else:
-        print('Por favor, selecione una opção válida.')
+        # Este else é alcançado se a opção for uma letra única, mas não l, i, r ou s
+        print('Por favor, selecione uma opção válida.')
+
+    input('\nPressione Enter para continuar...') # Pausa para o usuário ver a saída
 print('Saindo do programa...')
