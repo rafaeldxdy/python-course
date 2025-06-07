@@ -4,6 +4,8 @@ import random
 
 def try_number(guess):
 
+    global secret_number
+
     if guess < secret_number:
         print('Your guess is too low.')
         return True
