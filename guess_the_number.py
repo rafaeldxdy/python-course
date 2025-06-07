@@ -9,7 +9,7 @@ print('I am thinking of a number between 1 and 10.')
 for guesses_taken in range(1, 10):
     print('Take a guess.')
     guess = int(input())
-
+    
     if guess < secret_number:
         print('Your guess is too low.')
     elif guess > secret_number:
