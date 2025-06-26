@@ -4,8 +4,8 @@ import mysql.connector
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '123',
-    'database': 'lista_de_tarefas'
+    'password': 'root',
+    'database': 'lista_viagem'
 }
 
 def conectar_db():
@@ -29,7 +29,7 @@ def adicionar_item(descricao):
     mydb, cursor = conectar_db()
     if mydb:
         try:
-            sql = "INSERT INTO itens (descricao) VALUES (%s)"
+            sql = "INSERT INTO lista_itens (descricao) VALUES (%s)"
             cursor.execute(sql, (descricao,))
             mydb.commit()
             print(f'Item "{descricao}" adicionado com sucesso!')
@@ -44,7 +44,7 @@ def listar_itens():
     mydb, cursor = conectar_db()
     if mydb:
         try:
-            sql = "SELECT id, descricao, ticked FROM itens WHERE ticked = FALSE"
+            sql = "SELECT * FROM lista_itens"
             cursor.execute(sql)
             itens = cursor.fetchall()
             if not itens:
@@ -65,7 +65,7 @@ def ticar_item(item_id):
     mydb, cursor = conectar_db()
     if mydb:
         try:
-            sql = "UPDATE itens SET ticked = TRUE WHERE id = %s"
+            sql = "DELETE FROM lista_itens WHERE id = %s"
             cursor.execute(sql, (item_id,))
             mydb.commit()
             if cursor.rowcount > 0:
@@ -91,15 +91,19 @@ while True:
         listar_itens()
     elif opcao == '3':
         ids_disponiveis = listar_itens() # Primeiro listamos para o usuário ver os IDs
-        if ids_disponiveis:
+        item_id = input('Qual o número do item que deseja ticar? ')
+
+        if item_id in ids_disponiveis:
             try:
-                item_id = int(input('Qual o número do item que deseja ticar? '))
+                item_id = input('Qual o número do item que deseja ticar? ')
                 if item_id in ids_disponiveis:
                     ticar_item(item_id)
                 else:
                     print(f'Número "{item_id}" não encontrado na lista.')
             except ValueError:
                 print('Por favor, insira um número válido.')
+        else:
+            print('Sua lista está vazia.')
     elif opcao == '4':
         break
     else:
