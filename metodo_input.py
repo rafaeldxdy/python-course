@@ -1,12 +1,11 @@
-numero1 = input('Digite um número: ')
-numero2 = input('Digite outro número: ')
+# nome = input('Qual o seu nome? ')
+# print(f'O seu nome é {nome}')
 
-int_numero1 = int(numero1)
-int_numero2 = int(numero2)
+numero_1 = input('Digite um número: ')
+numero_2 = input('Digite outro número: ')
 
-if int_numero1 > int_numero2:
-    print(f'O número {int_numero1} é maior que o número {int_numero2}')
-elif int_numero2 > int_numero1:
-    print(f'O número {int_numero2} é maior que o número {int_numero1}')
-else:
-    print('Os números são iguais')
+int_numero_1 = int(numero_1)
+int_numero_2 = int(numero_2)
+
+print(f'A soma dos números é: {int_numero_1 + int_numero_2}')
+
