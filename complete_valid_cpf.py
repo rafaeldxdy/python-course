@@ -1,104 +1,83 @@
+# CPF Validator in Python 🇧🇷
+# Author: Rafael Ribeiro
+# Improved with the help of AI (ChatGPT) 🤖
+# Description: Validates Brazilian CPF numbers using the official algorithm,
+# written for learning purposes and personal development.
+
 # Validação de CPF usando o algoritmo oficial da Receita Federal
-# CPF Validation using the official Brazilian algorithm
+# CPF validation using the official Brazilian algorithm
+
 
 # Verifica se o CPF informado tem 11 dígitos numéricos
-def fn_cpf_candidate(cpf):
-    if len(cpf) != 11 or not cpf.isnumeric():
-        return False
-    else:
-        return True
+# Checks if the input CPF has 11 numeric digits
+def is_valid_cpf_format(cpf):
+    return len(cpf) == 11 and cpf.isdigit()
+
 
 # Calcula o primeiro dígito verificador do CPF
 # Calculates the first check digit of the CPF
-def check_first_digit(cpf):
-    result = 0
-    counter = 10
+def calculate_first_digit(cpf):
+    total = 0
+    weight = 10
 
-    for i in range(len(cpf) - 2):
-        result += int(cpf[i]) * counter
-        counter -= 1
+    for i in range(9):
+        total += int(cpf[i]) * weight
+        weight -= 1
 
-    result *= 10
-    result %= 11
+    digit = (total * 10) % 11
+    return 0 if digit > 9 else digit
 
-    if result > 9:
-        result = 0
-
-    return result
 
 # Calcula o segundo dígito verificador do CPF
 # Calculates the second check digit of the CPF
-def check_second_digit(cpf):
-    result = 0
-    counter = 11
+def calculate_second_digit(cpf):
+    total = 0
+    weight = 11
 
-    for i in range(len(cpf) - 1):
-        result += int(cpf[i]) * counter
-        counter -= 1
+    for i in range(10):
+        total += int(cpf[i]) * weight
+        weight -= 1
 
-    result *= 10
-    result %= 11
+    digit = (total * 10) % 11
+    return 0 if digit > 9 else digit
 
-    if result > 9:
-        result = 0
-
-    return result
 
 # Compara os dígitos informados com os dígitos calculados
 # Compares the input digits with the calculated digits
-def validate_cpf(cpf, first_digit, second_digit):
-    if int(cpf[9]) == first_digit and int(cpf[10]) == second_digit:
-        return True
-    else:
-        return False
+def is_valid_cpf(cpf, first_digit, second_digit):
+    return int(cpf[9]) == first_digit and int(cpf[10]) == second_digit
 
-start_program = True
-continue_verify = True
 
 # Loop principal do programa
 # Main program loop
-while start_program:
+def run_cpf_validator():
+    while True:
+        cpf = input('Enter your CPF (numbers only): ')
 
-    cpf = input('Type your CPF (just numbers): ')
-    valid_candidate_cpf = fn_cpf_candidate(cpf)
-
-    # Verifica se o CPF tem formato válido (11 dígitos numéricos)
-    if not valid_candidate_cpf:
-        print('Please, type a valid CPF.')
-        continue
-    else:
-        # Calcula os dígitos verificadores
-        # Calculates the check digits
-        first_digit_cpf = check_first_digit(cpf)
-        second_digit_cpf = check_second_digit(cpf)
-
-        # Verifica se o CPF é válido
-        # Validates the CPF
-        is_valid = validate_cpf(cpf, first_digit_cpf, second_digit_cpf)
-
-        if is_valid:
-            print(f'The {cpf} is a valid CPF!')
-        else:
-            print(f'The {cpf} is not a valid CPF! Try again.')
-
-    # Pergunta se o usuário deseja validar outro CPF
-    # Asks the user whether to validate another CPF
-    while continue_verify:
-
-        continue_verify = input('Do you want to try a new CPF? [Y]es or [N]o: ')
-
-        try:
-            if continue_verify[0] in ['Y', 'y']:
-                break
-            elif continue_verify[0] in ['N', 'n']:
-                start_program = False
-                print('Bye, bye.')
-                break
-            else:
-                print('Please, type a valid option!')
-                continue
-
-        except IndexError:
-            continue_verify = True
-            print('Please, type a valid option!')
+        if not is_valid_cpf_format(cpf):
+            print('Invalid format. Please enter exactly 11 numeric digits.')
             continue
+
+        first_digit = calculate_first_digit(cpf)
+        second_digit = calculate_second_digit(cpf)
+
+        if is_valid_cpf(cpf, first_digit, second_digit):
+            print(f'{cpf} is a valid CPF.')
+        else:
+            print(f'{cpf} is not a valid CPF.')
+
+        while True:
+            try_again = input('Do you want to check another CPF? [Y]es or [N]o: ').strip().lower()
+
+            if try_again.startswith('y'):
+                break
+            elif try_again.startswith('n'):
+                print('Goodbye!')
+                return
+            else:
+                print('Invalid option. Please type [Y] or [N].')
+
+
+# Inicia o validador
+# Starts the validator
+run_cpf_validator()
